@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Avatar,
   Burger,
+  Button,
   Container,
   Group,
   Menu,
@@ -47,19 +48,11 @@ function Navbar() {
 
   const signOutUser = user ? (
     <ActionIcon color='red'>
-      <Logout
-        onClick={() => signOut(auth)}
-        className={classes.logout}
-        strokeOpacity={1}
-      />
+      <Logout onClick={() => signOut(auth)} className={classes.logout} strokeOpacity={1} />
     </ActionIcon>
   ) : (
     <ActionIcon color='blue'>
-      <Login
-        onClick={() => navigate('/register')}
-        className={classes.login}
-        strokeOpacity={1}
-      />
+      <Login onClick={() => navigate('/register')} className={classes.login} strokeOpacity={1} />
     </ActionIcon>
   );
 
@@ -68,21 +61,11 @@ function Navbar() {
       <div className={classes.header}>
         <Container className={classes.mainSection}>
           <div className={classes.logoThemeContainer}>
-            <img
-              onClick={() => navigate('/home')}
-              src={QuizLogo}
-              className={classes.logo}
-              alt=''
-            />
+            <img onClick={() => navigate('/home')} src={QuizLogo} className={classes.logo} alt='' />
             <ToggleColorButton />
           </div>
           <Group position='apart'>
-            <Burger
-              opened={opened}
-              onClick={toggle}
-              className={classes.burger}
-              size='sm'
-            />
+            <Burger opened={opened} onClick={toggle} className={classes.burger} size='sm' />
 
             <Transition transition='pop-top-right' duration={200} mounted={opened}>
               {(styles) => (
@@ -104,21 +87,33 @@ function Navbar() {
 
             <Menu width={240} position='bottom-end' transition='pop-top-right'>
               {signOutUser}
-              <Menu.Target>
-                <UnstyledButton className={cx(classes.user)}>
-                  <Group spacing={7}>
-                    <Avatar
-                      src={user?.photoURL}
-                      alt={user?.displayName || 'guest'}
-                      radius='xl'
-                      size={22}
-                    />
-                    <Text weight={500} size='sm' sx={{ lineHeight: 1 }} mr={3}>
-                      {user?.displayName || 'Guest'}
-                    </Text>
-                  </Group>
-                </UnstyledButton>
-              </Menu.Target>
+              {user ? (
+                <Menu.Target>
+                  <UnstyledButton className={cx(classes.user)}>
+                    <Group spacing={7}>
+                      <Avatar
+                        src={user?.photoURL}
+                        alt={user?.displayName || 'guest'}
+                        radius='xl'
+                        size={22}
+                      />
+                      <Text weight={500} size='sm' sx={{ lineHeight: 1 }} mr={3}>
+                        {user?.displayName || 'Guest'}
+                      </Text>
+                    </Group>
+                  </UnstyledButton>
+                </Menu.Target>
+              ) : (
+                <Menu.Target>
+                  <Button onClick={() => navigate('/register')} size='xs' variant='default'>
+                    <Group spacing={3}>
+                      <Text weight={500} size='sm' sx={{ lineHeight: 1 }} mr={2}>
+                        Login
+                      </Text>
+                    </Group>
+                  </Button>
+                </Menu.Target>
+              )}
             </Menu>
           </Group>
         </Container>

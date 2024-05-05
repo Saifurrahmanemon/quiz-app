@@ -74,8 +74,7 @@ function AuthenticationForm(props: PaperProps) {
 
     validate: ({ email, password }) => ({
       email: /^\S+@\S+$/.test(email) ? null : 'Please Provide a valid email',
-      password:
-        password.length < 6 ? 'Password should include at least 6 characters' : null,
+      password: password.length < 6 ? 'Password should include at least 6 characters' : null,
     }),
   });
 
@@ -97,8 +96,7 @@ function AuthenticationForm(props: PaperProps) {
       </GoogleButton>
     );
 
-  const handleAuthOnSubmit =
-    type === 'login' ? handleLoginOnSubmit : handleSignUpOnSubmit;
+  const handleAuthOnSubmit = type === 'login' ? handleLoginOnSubmit : handleSignUpOnSubmit;
 
   const buttonDisabled = loadingGoogle || loadingLogin || loadingSignUp;
 
@@ -141,9 +139,7 @@ function AuthenticationForm(props: PaperProps) {
               placeholder='Your password'
               value={form.values.password}
               {...form.getInputProps('password')}
-              error={
-                form.errors.password && 'Password should include at least 6 characters'
-              }
+              error={form.errors.password && 'Password should include at least 6 characters'}
             />
           </Stack>
 
@@ -159,11 +155,7 @@ function AuthenticationForm(props: PaperProps) {
                 ? 'Already have an account? Login'
                 : 'Don not have an account? Register'}
             </Anchor>
-            <Button
-              onClick={() => console.log(type)}
-              disabled={buttonDisabled}
-              type='submit'
-            >
+            <Button onClick={() => console.log(type)} disabled={buttonDisabled} type='submit'>
               {upperFirst(type)}
             </Button>
           </Group>
